@@ -25,9 +25,14 @@ namespace WebApi_DAL
             return good;
         }
 
-        public Task<Good> DeleteById(Guid id)
+        public async Task<Good> DeleteById(Guid id)
         {
-            throw new NotImplementedException();
+            var good = _dbContext.Goods.Where(x => x.Id == id).FirstOrDefault();
+            _dbContext.Remove(good);
+
+            await _dbContext.SaveChangesAsync();
+
+            return good;
         }
 
         public async Task<IEnumerable<Good>> GetAll()
@@ -43,7 +48,7 @@ namespace WebApi_DAL
         public async Task<Good> UpdateById(Guid id, Good good)
         {
             good.Id = id;
-            //_dbContext.Attach(good);
+            _dbContext.Attach(good);
             _dbContext.Entry(good).State = EntityState.Modified;
 
             await _dbContext.SaveChangesAsync();

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using WebApi_BL;
+using WebApi_DAL.Entities;
 
 namespace WebApi_PRO.Controllers
 {
@@ -31,6 +32,30 @@ namespace WebApi_PRO.Controllers
             var good = await _goodsService.GetById(id);
 
             return good != null ? Ok(good) : NotFound();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteById(Guid id)
+        {
+            var goods = await _goodsService.DeleteById(id);
+
+            return Ok(goods);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Good good)
+        {
+            var goods = await _goodsService.Create(good);
+
+            return Ok(good);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateById(Guid id, Good good)
+        {
+            var goods = await _goodsService.UpdateById(id, good);
+
+            return Ok(good);
         }
     }
 }
