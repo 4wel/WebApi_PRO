@@ -32,7 +32,7 @@ namespace WebApi_PRO.Controllers
             var good = await _goodsService.GetById(id);
 
             return good != null ? Ok(good) : NotFound();
-        }
+        } 
 
         [HttpDelete]
         public async Task<IActionResult> DeleteById(Guid id)
